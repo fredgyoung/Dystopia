@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <table class="table table-striped caption-top">
-        <caption style="text-align:center">Books by {{ author }}</caption>
+        <caption style="text-align:center">Books by {{ author.first_name_last_name }}</caption>
         <thead>
             <tr>
                 <th scope="col">Suggested Order</th>

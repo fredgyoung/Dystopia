@@ -62,10 +62,10 @@ class Author(models.Model):
     #description = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.first_names} {self.last_names}'
-
-    def last_name_first_name(self):
         return f'{self.last_names}, {self.first_names}'
+
+    def first_name_last_name(self):
+        return f'{self.first_names} {self.last_names}'
 
     class Meta:
         verbose_name_plural = 'Authors'
@@ -207,6 +207,7 @@ class Book(models.Model):
     )
 
     amazon_short_link = models.URLField(
+        max_length=30,
         null=True,
         blank=True,
         verbose_name="Amazon Short Link",

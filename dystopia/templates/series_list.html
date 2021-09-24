@@ -12,7 +12,7 @@
             {% for series in series_list %}
                 <tr>
                     <td><a href="{% url 'series_detail' series.slug %}">{{ series.title }}</a></td>
-                    <td>{{ series.author }}</td>
+                    <td>{{ series.author.first_name_last_name }}</td>
                 </tr>
             {% endfor %}
         </tbody>

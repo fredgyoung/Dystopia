@@ -10,7 +10,7 @@
         <tbody>
             {% for author in author_list %}
                 <tr>
-                    <td><a href="{% url 'author_detail' author.slug %}">{{ author }}</a></td>
+                    <td><a href="{% url 'author_detail' author.slug %}">{{ author.first_name_last_name }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

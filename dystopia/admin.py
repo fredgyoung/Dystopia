@@ -35,11 +35,12 @@ class BookInline(TabularInline):
     model = Book
 
     fields = (
-        'publication_month',
-        'publication_year',
+        #'publication_month',
+        #'publication_year',
         'reading_order',
         'title',
-        'subtitle',
+        'amazon_short_link',
+        #'subtitle',
         'author',
         'length',
     )
