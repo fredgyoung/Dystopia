@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Vampire Books{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    {% include "bootstrap_css.html" %}
+</head>
+<body>
+    <!-- Navbars -->
+    {% include "author_navbar.html" %}
+    {% include "series_navbar.html" %}
+    <!-- End of Navbars -->
+
+    <div style="margin: 50px;">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    {% include "bootstrap_js.html" %}
+</body>
+</html>

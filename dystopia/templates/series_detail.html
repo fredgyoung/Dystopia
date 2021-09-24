@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <table class="table table-striped caption-top">
+        <caption style="text-align:center">The {{ series.title }} Series by {{ series.author }}</caption>
+        <thead>
+            <tr>
+                <th scope="col">Suggested Order</th>
+                <th scope="col">Title</th>
+                <th scope="col">Length</th>
+                <th scope="col">Buy</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in book_list %}
+                <tr>
+                    <td>{{ book.reading_order }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.length }}</td>
+                    <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
