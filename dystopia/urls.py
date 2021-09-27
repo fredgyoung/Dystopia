@@ -27,5 +27,12 @@ urlpatterns = [
     # Series
     path('series-starting-with-<str:letter>/', views.series_list_view, name='series_list'),
     path('series/<slug:slug>/', views.series_detail_view, name='series_detail'),
+    # Books
+    path('books-starting-with-<str:letter>/', views.book_list_view, name='book_list'),
+    path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
+    # Admin
+    path('admin-author-list/', views.admin_author_list_view, name='author_list'),
+    path('admin-book-list/', views.admin_book_list_view, name='book_list'),
+    path('admin-series-list/', views.admin_series_list_view, name='series_list'),
 ]
 

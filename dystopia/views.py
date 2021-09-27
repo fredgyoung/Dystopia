@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 from django.views.generic import ListView, DetailView
-from .models import Author, Series
+from .models import Author, Book, Series
 
 
 def home_page_view(request):
@@ -43,6 +43,20 @@ def series_detail_view(request, slug):
     }
     return render(request, 'series_detail.html', context)
 
+def book_list_view(request, letter):
+    try:
+        book_list = Book.objects.filter(title__startswith=letter)
+    except:
+        raise Http404(f"No books beginning with {letter}!")
+    return render(request, 'book_list.html', {'book_list': book_list})
+
+def book_detail_view(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+    context = {
+        'book': book
+    }
+    return render(request, 'book_detail.html', context)
+
 
 class SeriesDetailView(DetailView):
     model = Series
@@ -50,3 +64,44 @@ class SeriesDetailView(DetailView):
     context_object_name = 'series'
 
 
+# Admin Views
+# List all authors
+def admin_author_list_view(request):
+    try:
+        author_list = Author.objects.all()
+    except:
+        raise Http404(f"No authors!")
+    return render(request, 'admin_author_list.html', {'author_list': author_list})
+
+# List all books ordered by slug
+def admin_book_list_view(request):
+    try:
+        book_list = Book.objects.all().order_by('slug')
+    except:
+        raise Http404(f"No books!")
+    return render(request, 'admin_book_list.html', {'book_list': book_list})
+
+# List all series order by title
+def admin_series_list_view(request):
+    try:
+        series_list = Series.objects.all().order_by('title')
+    except:
+        raise Http404(f"No series!")
+    return render(request, 'admin_series_list.html', {'series_list': series_list})
+
+'''
+Proposed Views:
+books without author
+books without subtitle
+books without series
+books without slug 
+books without description
+
+series without author
+series without slug
+series without wikipedia, amazon, goodreads, author, or publisher webpage
+series without description
+series that are hidden
+ 
+authors without wikipedia, author, or publisher webpage
+'''

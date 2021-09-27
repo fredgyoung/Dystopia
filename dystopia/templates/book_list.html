@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Book Title</th>
+                <th scope="col">Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in book_list %}
+                <tr>
+                    <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
+                    <td>{{ book.author.first_name_last_name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

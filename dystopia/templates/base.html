@@ -7,14 +7,36 @@
 
     <!-- Bootstrap CSS -->
     {% include "bootstrap_css.html" %}
+    <style>
+        #navigation {
+            background-color: black;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        #container {
+            margin: 50px;
+            padding: 10px;
+            border: 12px solid #ffa949;
+            border-radius: 30px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbars -->
-    {% include "author_navbar.html" %}
-    {% include "series_navbar.html" %}
-    <!-- End of Navbars -->
+    <div id="navigation">
+        {% include "series_dropdown.html" %}
+        {% include "author_dropdown.html" %}
+        {% include "book_dropdown.html" %}
+    </div>
 
-    <div style="margin: 50px;">
+    <div id="debug">
+        <a href="/admin-author-list/">Authors</a>
+        <a href="/admin-book-list/">Books</a>
+        <a href="/admin-series-list/">Series</a>
+    </div>
+
+    <div id="container">
         {% block content %}{% endblock %}
     </div>
 

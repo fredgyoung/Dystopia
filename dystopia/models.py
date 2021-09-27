@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.dates import MONTHS
+from django.utils.text import slugify
 
 
 class Publisher(models.Model):
-    title = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
 
@@ -16,7 +17,7 @@ class Publisher(models.Model):
 
 
 class Imprint(models.Model):
-    title = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
     slug = models.SlugField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
 
@@ -39,7 +40,12 @@ class Author(models.Model):
 
     first_names = models.CharField(max_length=255)
     last_names = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True)
+
+    slug = models.SlugField(
+        null=True,
+        blank=True,
+        unique=True,
+    )
 
     author_website = models.URLField(
         verbose_name="Author's Website",
@@ -61,6 +67,10 @@ class Author(models.Model):
 
     #description = models.TextField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f"{self.id}-{self.first_names}-{self.last_names}")
+        super(Author, self).save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.last_names}, {self.first_names}'
 
@@ -74,9 +84,10 @@ class Author(models.Model):
 
 class Series(models.Model):
 
+    publish = models.BooleanField(default=True)
+
     title = models.CharField(
         max_length=255,
-        unique=True
     )
 
     wikipedia_page = models.URLField(
@@ -111,7 +122,8 @@ class Series(models.Model):
 
     slug = models.SlugField(
         null=True,
-        blank=True
+        blank=True,
+        unique=True
     )
 
     author = models.ForeignKey(
@@ -129,6 +141,10 @@ class Series(models.Model):
     )
 
     #description = models.TextField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f"{self.id}-the-{self.title}-series")
+        super(Series, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -159,7 +175,8 @@ class Book(models.Model):
 
     slug = models.SlugField(
         null=True,
-        blank=True
+        blank=True,
+        unique=True
     )
 
     length = models.CharField(
@@ -213,6 +230,13 @@ class Book(models.Model):
         verbose_name="Amazon Short Link",
     )
 
+    def save(self, *args, **kwargs):
+        if self.subtitle:
+            self.slug = slugify(f"{self.id}-{self.title}-{self.subtitle}-by-{self.author.first_name_last_name()}")
+        else:
+            self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name()}")
+        super(Book, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
         '''
@@ -221,6 +245,12 @@ class Book(models.Model):
         else:
             return self.title
         '''
+
+    def title_and_subtitle(self):
+        if self.subtitle:
+            return f'{self.title}: {self.subtitle}'
+        else:
+            return self.title
 
     class Meta:
         verbose_name_plural = 'Books'

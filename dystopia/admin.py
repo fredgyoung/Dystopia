@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin, TabularInline
+from django.contrib.admin import ModelAdmin, StackedInline, TabularInline
 from .models import Publisher, Imprint, Series, Author, Book
 
 
@@ -7,14 +7,10 @@ from .models import Publisher, Imprint, Series, Author, Book
 class ImprintAdmin(ModelAdmin):
     fields = (('title', 'slug'), 'website', 'publisher')
     list_display = ('title',)
-    prepopulated_fields = {'slug': ('title',)}
 
 
 class ImprintInline(TabularInline):
     model = Imprint
-    #fields = ('publication_order', 'chronological_order', 'title', 'length')
-    #ordering = ('publication_order',)
-    prepopulated_fields = {'slug': ('title',)}
     extra = 10
 
 
@@ -28,33 +24,35 @@ class PublisherAdmin(ModelAdmin):
     )
 
     list_display = ('title',)
-    prepopulated_fields = {'slug': ('title',)}
 
 
-class BookInline(TabularInline):
+class BookInline(StackedInline):
     model = Book
+    readonly_fields = ('slug',)
 
     fields = (
+        'reading_order',
         #'publication_month',
         #'publication_year',
-        'reading_order',
-        'title',
-        'amazon_short_link',
-        #'subtitle',
+        ('title', 'slug'),
+        'subtitle',
         'author',
         'length',
+        'amazon_short_link',
     )
 
-    #prepopulated_fields = {'slug': ('title',)}
     ordering = ('reading_order', 'publication_year', 'publication_month',)
-    extra = 10
+    extra = 0
 
 
 @admin.register(Series)
 class SeriesAdmin(ModelAdmin):
     inlines = [BookInline]
+    #save_on_top = True
+    readonly_fields = ('slug',)
 
     fields = (
+        'publish',
         ('title', 'slug'),
         'author',
         'wikipedia_page',
@@ -65,55 +63,58 @@ class SeriesAdmin(ModelAdmin):
         'notes',
     )
 
-    list_display = ('title',)
-
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
+    list_display = ('title', 'author')
 
 
-class SeriesInline(TabularInline):
+class SeriesInline(StackedInline):
     model = Series
-    fields = ('title',)
+    readonly_fields = ('slug',)
+
+    fields = (
+        'publish',
+        ('title', 'slug'),
+        'wikipedia_page',
+        'amazon_page',
+        'goodreads_page',
+        'author_website',
+        'publisher_website',
+        'notes',
+    )
+
     ordering = ('title',)
-    extra = 1
+
+    extra = 0
 
 
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    inlines = [SeriesInline]
+    #save_on_top = True
+    inlines = [SeriesInline, BookInline]
+    readonly_fields = ('slug',)
 
     fields = (
-        'first_names',
+        ('first_names', 'slug'),
         'last_names',
-        'slug',
         'wikipedia_page',
         'author_website',
         'publisher_website',
     )
 
-    prepopulated_fields = {
-        'slug': ('first_names', 'last_names')
-    }
-
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
+    #save_on_top = True
     list_display = ('title', 'subtitle', 'series', 'author')
     list_filter = ('series',)
+    readonly_fields = ('slug',)
 
     fields = (
-        ('title', 'subtitle'),
-         'slug',
-        ('author', 'length'),
+        ('title', 'slug'),
+        'subtitle',
+        'author',
+        'length',
         'series',
-        ('publication_month', 'publication_year'),
-        'asin',
+        #'publication_month',
+        #'publication_year',
         'amazon_short_link',
     )
-
-    prepopulated_fields = {
-        'slug': ('title', 'subtitle')
-    }
-
-
