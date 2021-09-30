@@ -90,11 +90,11 @@ class SeriesInline(StackedInline):
 class AuthorAdmin(ModelAdmin):
     #save_on_top = True
     inlines = [SeriesInline, BookInline]
-    readonly_fields = ('slug',)
+    readonly_fields = ('id', 'slug',)
 
     fields = (
-        ('first_names', 'slug'),
-        'last_names',
+        ('first_names', 'id'),
+        ('last_names', 'slug'),
         'wikipedia_page',
         'author_website',
         'publisher_website',

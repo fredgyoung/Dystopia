@@ -34,5 +34,7 @@ urlpatterns = [
     path('admin-author-list/', views.admin_author_list_view, name='author_list'),
     path('admin-book-list/', views.admin_book_list_view, name='book_list'),
     path('admin-series-list/', views.admin_series_list_view, name='series_list'),
+    path('series-book-totals/', views.series_book_totals, name='series_list'),
+
 ]
 

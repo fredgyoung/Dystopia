@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 from django.views.generic import ListView, DetailView
 from .models import Author, Book, Series
+from django.db.models import Count
 
 
 def home_page_view(request):
@@ -88,6 +89,16 @@ def admin_series_list_view(request):
     except:
         raise Http404(f"No series!")
     return render(request, 'admin_series_list.html', {'series_list': series_list})
+
+# List series and number of related books
+def series_book_totals(request):
+    try:
+        #series_book_totals = Series.objects.annotate(num_books=Count('books')).order_by('title')
+        series_book_totals = Series.objects.annotate(num_books=Count('books')).order_by('num_books', 'title')
+
+    except:
+        raise Http404(f"No series!")
+    return render(request, 'series_book_totals.html', {'series_book_totals': series_book_totals})
 
 '''
 Proposed Views:

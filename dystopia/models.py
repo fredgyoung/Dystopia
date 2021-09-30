@@ -38,8 +38,19 @@ class Imprint(models.Model):
 
 class Author(models.Model):
 
-    first_names = models.CharField(max_length=255)
-    last_names = models.CharField(max_length=255)
+    first_names = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        default=""
+    )
+
+    last_names = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        default=""
+    )
 
     slug = models.SlugField(
         null=True,
@@ -130,7 +141,7 @@ class Series(models.Model):
         Author,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='series',
     )
 
@@ -187,11 +198,15 @@ class Book(models.Model):
         blank=True,
     )
 
+    # Author 211 is "No Author"
+    DEFAULT_AUTHOR_ID = 211
+
     author = models.ForeignKey(
         Author,
+        default=DEFAULT_AUTHOR_ID,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='books',
     )
 
@@ -201,7 +216,7 @@ class Book(models.Model):
         Series,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='books',
     )
 
