@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>All Authors</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">First Names</th>
-                <th scope="col">Last Names</th>
-                <th scope="col">Slug</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for author in author_list %}
+    <div id="container">
+        <h1>All Authors</h1>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td><a target="_blank" href="http://localhost:8000/admin/dystopia/author/{{ author.id }}/change/">{{ author.id }}</a></td>
-                    <td>{{ author.first_names }}</td>
-                    <td>{{ author.last_names }}</td>
-                    <td>{{ author.slug }}</td>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Names</th>
+                    <th scope="col">Last Names</th>
+                    <th scope="col">Slug</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-
+            </thead>
+            <tbody>
+                {% for author in author_list %}
+                    <tr>
+                        <td><a target="_blank" href="http://localhost:8000/admin/dystopia/author/{{ author.id }}/change/">{{ author.id }}</a></td>
+                        <td>{{ author.first_names }}</td>
+                        <td>{{ author.last_names }}</td>
+                        <td>{{ author.slug }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

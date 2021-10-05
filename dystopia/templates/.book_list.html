@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
     <div id="container">
+
     <h2>Starting with {{ letter }}</h2>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Book Series</th>
+                <th scope="col">Book Title</th>
                 <th scope="col">Author</th>
             </tr>
         </thead>
         <tbody>
-            {% if series_list %}
-                {% for series in series_list %}
+            {% if book_list %}
+                {% for book in book_list %}
                     <tr>
-                        <td><a href="{% url 'series_detail' series.slug %}">{{ series.title }}</a></td>
-                        <td>{{ series.author.first_name_last_name }}</td>
+                        <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
+                        <td>{{ book.author.first_name_last_name }}</td>
                     </tr>
                 {% endfor %}
             {% else %}
-                <tr>
-                    <td>Sorry, no series begins with the letter {{ letter }}.</td>
-                </tr>
+                <td>Sorry, no book begins with the letter {{ letter }}.</td>
             {% endif %}
         </tbody>
     </table>

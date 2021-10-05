@@ -29,16 +29,12 @@ class PublisherAdmin(ModelAdmin):
 class BookInline(StackedInline):
     model = Book
     readonly_fields = ('slug',)
+    autocomplete_fields = ['author']
 
     fields = (
-        'reading_order',
-        #'publication_month',
-        #'publication_year',
-        ('title', 'slug'),
-        'subtitle',
-        'author',
-        'length',
-        'amazon_short_link',
+        ('reading_order', 'author'),
+        ('title', 'subtitle'),
+        ('amazon_short_link', 'length'),
     )
 
     ordering = ('reading_order', 'publication_year', 'publication_month',)
@@ -91,8 +87,10 @@ class AuthorAdmin(ModelAdmin):
     #save_on_top = True
     inlines = [SeriesInline, BookInline]
     readonly_fields = ('id', 'slug',)
+    search_fields = ['last_names']
 
     fields = (
+        'publish',
         ('first_names', 'id'),
         ('last_names', 'slug'),
         'wikipedia_page',
@@ -109,6 +107,7 @@ class BookAdmin(ModelAdmin):
     readonly_fields = ('slug',)
 
     fields = (
+        'publish',
         ('title', 'slug'),
         'subtitle',
         'author',

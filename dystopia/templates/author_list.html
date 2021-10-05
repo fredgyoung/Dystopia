@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-
+    <div id="container">
+    <h2>Starting with {{ letter }}</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -8,13 +9,19 @@
             </tr>
         </thead>
         <tbody>
-            {% for author in author_list %}
+            {% if author_list %}
+                {% for author in author_list %}
+                    <tr>
+                        <td><a href="{% url 'author_detail' author.slug %}">{{ author.first_name_last_name }}</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
                 <tr>
-                    <td><a href="{% url 'author_detail' author.slug %}">{{ author.first_name_last_name }}</a></td>
+                    <td>Sorry, no authors have a last name that begins with the letter {{ letter }}.</td>
                 </tr>
-            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
-
+    </div>
 
 {% endblock %}

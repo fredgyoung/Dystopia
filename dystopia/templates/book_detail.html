@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Title: {{ book.title }}</p>
-    {% if book.subtitle %}<p>Subtitle: {{ book.subtitle }}</p>{% endif %}
-    <p>Series: {{ book.series }}</p>
+    <div id="container">
+    {% if book.subtitle %}
+        <p>Title: {{ book.title }}: {{ book.subtitle }}</p>
+    {% else %}
+        <p>Title: {{ book.title }}</p>
+    {% endif %}
     <p>Author: {{ book.author.first_name_last_name }}</p>
+    <p>Series: {{ book.series }}</p>
     <p>Length: {{ book.length }}</p>
-    <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+    {% if book.amazon_short_link %}
+        <td>
+            <a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a>
+        </td>
+    {% endif %}
+    </div>
 {% endblock %}

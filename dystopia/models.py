@@ -38,6 +38,8 @@ class Imprint(models.Model):
 
 class Author(models.Model):
 
+    publish = models.BooleanField(default=False)
+
     first_names = models.CharField(
         max_length=255,
         null=True,
@@ -95,7 +97,7 @@ class Author(models.Model):
 
 class Series(models.Model):
 
-    publish = models.BooleanField(default=True)
+    publish = models.BooleanField(default=False)
 
     title = models.CharField(
         max_length=255,
@@ -148,7 +150,7 @@ class Series(models.Model):
     notes = models.TextField(
         verbose_name="Internal Notes",
         null=True,
-        blank=True,
+        blank=True
     )
 
     #description = models.TextField(null=True, blank=True)
@@ -173,6 +175,8 @@ class Book(models.Model):
         ('Short Story', 'Short Story'),
         ('Short Story Collection', 'Short Story Collection'),
     ]
+
+    publish = models.BooleanField(default=False)
 
     title = models.CharField(
         max_length=255,
@@ -238,10 +242,13 @@ class Book(models.Model):
         blank=True
     )
 
+    DEFAULT_AMAZON_LINK = "https://amzn.to/3l2b6VO"
+
     amazon_short_link = models.URLField(
         max_length=30,
         null=True,
         blank=True,
+        default=DEFAULT_AMAZON_LINK,
         verbose_name="Amazon Short Link",
     )
 

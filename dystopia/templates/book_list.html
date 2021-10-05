@@ -1,21 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Book Title</th>
-                <th scope="col">Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in book_list %}
+    <div id="container">
+        <h2>Starting with {{ letter }}</h2>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
-                    <td>{{ book.author.first_name_last_name }}</td>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Author</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                {% if page_obj %}
+                    {% for book in page_obj %}
+                        <tr>
+                            <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
+                            <td>{{ book.author.first_name_last_name }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <td>Sorry, no book begins with the letter {{ letter }}.</td>
+                {% endif %}
+            </tbody>
+        </table>
+        {% include "pagination.html" %}
+    </div>
 {% endblock %}

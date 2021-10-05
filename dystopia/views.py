@@ -5,6 +5,8 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic import ListView, DetailView
 from .models import Author, Book, Series
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 def home_page_view(request):
@@ -13,11 +15,12 @@ def home_page_view(request):
     return render(request, template, context)
 
 def author_list_view(request, letter):
-    try:
-        author_list = Author.objects.filter(last_names__startswith=letter)
-    except:
-        raise Http404(f"No authors beginning with {letter}!")
-    return render(request, 'author_list.html', {'author_list': author_list})
+    author_list = Author.objects.filter(last_names__startswith=letter)
+    context = {
+        'letter': letter,
+        'author_list': author_list,
+    }
+    return render(request, 'author_list.html', context)
 
 def author_detail_view(request, slug):
     author = get_object_or_404(Author, slug=slug)
@@ -29,11 +32,12 @@ def author_detail_view(request, slug):
     return render(request, 'author_detail.html', context)
 
 def series_list_view(request, letter):
-    try:
-        series_list = Series.objects.filter(title__startswith=letter)
-    except:
-        raise Http404(f"No series beginning with {letter}!")
-    return render(request, 'series_list.html', {'series_list': series_list})
+    series_list = Series.objects.filter(title__startswith=letter)
+    context = {
+        'letter': letter,
+        'series_list': series_list,
+    }
+    return render(request, 'series_list.html', context)
 
 def series_detail_view(request, slug):
     series = get_object_or_404(Series, slug=slug)
@@ -44,12 +48,44 @@ def series_detail_view(request, slug):
     }
     return render(request, 'series_detail.html', context)
 
+'''
+# First Iteration
 def book_list_view(request, letter):
-    try:
-        book_list = Book.objects.filter(title__startswith=letter)
-    except:
-        raise Http404(f"No books beginning with {letter}!")
-    return render(request, 'book_list.html', {'book_list': book_list})
+    book_list = Book.objects.filter(title__startswith=letter)
+    context = {
+        'letter': letter,
+        'book_list': book_list,
+    }
+    return render(request, 'book_list.html', context)
+
+# Add Pagination
+def book_list_view(request, letter):
+    book_list = Book.objects.filter(title__startswith=letter)
+    paginator = Paginator(book_list, 25) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'letter': letter,
+        'page_obj': page_obj,
+    }
+    return render(request, 'book_list.html', context)
+'''
+
+class BookListView(ListView):
+    paginate_by = 25
+    context_obj_name = 'page_obj'
+    template_name = 'book_list.html'
+
+    def get_queryset(self):
+        return Book.objects.filter(title__startswith=self.kwargs['letter'])
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the letter
+        context['letter'] = self.kwargs['letter']
+        return context
+
 
 def book_detail_view(request, slug):
     book = get_object_or_404(Book, slug=slug)
@@ -66,39 +102,40 @@ class SeriesDetailView(DetailView):
 
 
 # Admin Views
+# Admin Homepage
+@login_required
+def admin_reports_view(request):
+    return render(request, 'admin_reports.html')
+
 # List all authors
+@login_required
 def admin_author_list_view(request):
-    try:
-        author_list = Author.objects.all()
-    except:
-        raise Http404(f"No authors!")
+    author_list = Author.objects.all()
     return render(request, 'admin_author_list.html', {'author_list': author_list})
 
 # List all books ordered by slug
+@login_required
 def admin_book_list_view(request):
-    try:
-        book_list = Book.objects.all().order_by('slug')
-    except:
-        raise Http404(f"No books!")
+    book_list = Book.objects.all().order_by('slug')
     return render(request, 'admin_book_list.html', {'book_list': book_list})
 
 # List all series order by title
+@login_required
 def admin_series_list_view(request):
-    try:
-        series_list = Series.objects.all().order_by('title')
-    except:
-        raise Http404(f"No series!")
+    series_list = Series.objects.all().order_by('title')
     return render(request, 'admin_series_list.html', {'series_list': series_list})
 
 # List series and number of related books
+@login_required
 def series_book_totals(request):
-    try:
-        #series_book_totals = Series.objects.annotate(num_books=Count('books')).order_by('title')
-        series_book_totals = Series.objects.annotate(num_books=Count('books')).order_by('num_books', 'title')
-
-    except:
-        raise Http404(f"No series!")
+    series_book_totals = Series.objects.annotate(num_books=Count('books')).order_by('num_books', 'title')
     return render(request, 'series_book_totals.html', {'series_book_totals': series_book_totals})
+
+# Books without an Amazon short link
+@login_required
+def books_without_amazon_link(request):
+    book_list = Book.objects.filter(amazon_short_link__exact=None).order_by('series', 'title')
+    return render(request, 'books_without_amazon_link.html', {'book_list': book_list})
 
 '''
 Proposed Views:
