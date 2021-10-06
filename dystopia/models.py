@@ -3,39 +3,6 @@ from django.utils.dates import MONTHS
 from django.utils.text import slugify
 
 
-class Publisher(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True)
-    website = models.URLField(null=True, blank=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name_plural = 'Publishers'
-        ordering = ['title']
-
-
-class Imprint(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True)
-    website = models.URLField(null=True, blank=True)
-
-    publisher = models.ForeignKey(
-        Publisher,
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-    )
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name_plural = 'Imprints'
-        ordering = ['title']
-
-
 class Author(models.Model):
 
     publish = models.BooleanField(default=False)

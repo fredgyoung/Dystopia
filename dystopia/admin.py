@@ -1,29 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, StackedInline, TabularInline
-from .models import Publisher, Imprint, Series, Author, Book
-
-
-@admin.register(Imprint)
-class ImprintAdmin(ModelAdmin):
-    fields = (('title', 'slug'), 'website', 'publisher')
-    list_display = ('title',)
-
-
-class ImprintInline(TabularInline):
-    model = Imprint
-    extra = 10
-
-
-@admin.register(Publisher)
-class PublisherAdmin(ModelAdmin):
-    inlines = [ImprintInline]
-
-    fields = (
-        ('title', 'slug'),
-        'website',
-    )
-
-    list_display = ('title',)
+#from .models import Publisher, Imprint, Series, Author, Book
+from .models import Series, Author, Book
 
 
 class BookInline(StackedInline):
