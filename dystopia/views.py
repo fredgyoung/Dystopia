@@ -24,6 +24,7 @@ def author_list_view(request, letter):
 
 def author_detail_view(request, slug):
     author = get_object_or_404(Author, slug=slug)
+    series_list = author.series.all('title')
     book_list = author.books.all().order_by('reading_order')
     context = {
         'author': author,
@@ -86,14 +87,19 @@ class BookListView(ListView):
         context['letter'] = self.kwargs['letter']
         return context
 
-
+'''
 def book_detail_view(request, slug):
     book = get_object_or_404(Book, slug=slug)
     context = {
         'book': book
     }
     return render(request, 'book_detail.html', context)
+'''
 
+class BookDetailView(DetailView):
+    model = Book
+    template = 'book_detail.html'
+    context_object_name = 'book'
 
 class SeriesDetailView(DetailView):
     model = Series

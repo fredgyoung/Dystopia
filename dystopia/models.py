@@ -84,11 +84,16 @@ class Author(models.Model):
         self.slug = slugify(f"{self.id}-{self.first_names}-{self.last_names}")
         super(Author, self).save(*args, **kwargs)
 
-    def __str__(self):
-        return f'{self.last_names}, {self.first_names}'
-
+    @property
     def first_name_last_name(self):
         return f'{self.first_names} {self.last_names}'
+
+    @property
+    def last_name_first_name(self):
+        return f'{self.last_names}, {self.first_names}'
+
+    def __str__(self):
+        return self.last_name_first_name
 
     class Meta:
         verbose_name_plural = 'Authors'
@@ -261,12 +266,6 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-        '''
-        if self.title[:4] == "The ":
-            return f"{self.title[4:]}, {self.title[:4]}"
-        else:
-            return self.title
-        '''
 
     def title_and_subtitle(self):
         if self.subtitle:

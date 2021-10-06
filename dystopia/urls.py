@@ -30,7 +30,8 @@ urlpatterns = [
     # Books
     #path('books-starting-with-<str:letter>/', views.book_list_view, name='book_list'),
     path('books-starting-with-<str:letter>/', views.BookListView.as_view()),
-    path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
+    #path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
+    path('book/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
     # Main Admin Page
     path('admin-reports/', views.admin_reports_view, name='admin_reports'),
     # Additional Admin Pages

@@ -2,8 +2,11 @@
 <div class="pagination justify-content-center">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo;First</a>&emsp;
-            <a href="?page={{ page_obj.previous_page_number }}">&ltPrevious</a>&emsp;
+            <a href="?page=1" class="btn btn-outline-secondary btn-sm" role="button">First</a>&ensp;
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary btn-sm" role="button">Previous</a>&ensp;
+        {% else %}
+            <a href="" class="btn btn-outline-secondary btn-sm disabled" role="button">First</a>&ensp;
+            <a href="" class="btn btn-outline-secondary btn-sm disabled" role="button">Previous</a>&ensp;
         {% endif %}
 
         <span class="current">
@@ -11,8 +14,11 @@
         </span>
 
         {% if page_obj.has_next %}
-            &emsp;<a href="?page={{ page_obj.next_page_number }}">Next&gt</a>
-            &emsp;<a href="?page={{ page_obj.paginator.num_pages }}">Last&raquo</a>
+            &ensp;<a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary btn-sm" role="button">Next</a>
+            &ensp;<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary btn-sm" role="button">Last</a>
+        {% else %}
+            &ensp;<a href="" class="btn btn-outline-secondary btn-sm disabled" role="button">Next</a>
+            &ensp;<a href="" class="btn btn-outline-secondary btn-sm disabled" role="button">Last</a>
         {% endif %}
     </span>
 </div>

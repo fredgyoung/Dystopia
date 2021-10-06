@@ -59,7 +59,9 @@ class SeriesAdmin(ModelAdmin):
         'notes',
     )
 
-    list_display = ('title', 'author')
+    list_display = ('title', 'author', 'publish')
+    list_filter = ('publish',)
+    search_fields = ('title', 'author__first_names', 'author__last_names',)
 
 
 class SeriesInline(StackedInline):
@@ -87,7 +89,9 @@ class AuthorAdmin(ModelAdmin):
     #save_on_top = True
     inlines = [SeriesInline, BookInline]
     readonly_fields = ('id', 'slug',)
-    search_fields = ['last_names']
+    search_fields = ['last_names', 'first_names']
+    list_display = ['last_name_first_name', 'publish']
+    list_filter = ['publish',]
 
     fields = (
         'publish',
@@ -102,9 +106,10 @@ class AuthorAdmin(ModelAdmin):
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
     #save_on_top = True
-    list_display = ('title', 'subtitle', 'series', 'author')
-    list_filter = ('series',)
+    list_display = ('title', 'publish', 'series', 'author')
+    list_filter = ['publish',]
     readonly_fields = ('slug',)
+    search_fields = ('title', 'author__first_names', 'author__last_names',)
 
     fields = (
         'publish',
