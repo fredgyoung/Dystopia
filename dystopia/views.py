@@ -22,13 +22,29 @@ def author_list_view(request, letter):
     }
     return render(request, 'author_list.html', context)
 
+'''
 def author_detail_view(request, slug):
     author = get_object_or_404(Author, slug=slug)
-    series_list = author.series.all('title')
     book_list = author.books.all().order_by('reading_order')
     context = {
         'author': author,
         'book_list': book_list,
+    }
+    return render(request, 'author_detail.html', context)
+'''
+
+def author_detail_view(request, slug):
+    output = []
+    author = get_object_or_404(Author, slug=slug)
+    series_list = author.series.all().order_by('title')
+    for series in series_list:
+        book_list = author.books.all().filter(series_id__exact=series.id).order_by('reading_order')
+        output.append({'series': series, 'book_list': book_list})
+
+    context = {
+        'author': author,
+        # 'book_list': book_list,
+        'output': output,
     }
     return render(request, 'author_detail.html', context)
 
@@ -109,9 +125,11 @@ class SeriesDetailView(DetailView):
 
 # Admin Views
 # Admin Homepage
+'''
 @login_required
 def admin_reports_view(request):
     return render(request, 'admin_reports.html')
+'''
 
 # List all authors
 @login_required
@@ -146,16 +164,12 @@ def books_without_amazon_link(request):
 '''
 Proposed Views:
 books without author
-books without subtitle
 books without series
 books without slug 
 books without description
 
 series without author
 series without slug
-series without wikipedia, amazon, goodreads, author, or publisher webpage
 series without description
-series that are hidden
  
-authors without wikipedia, author, or publisher webpage
 '''

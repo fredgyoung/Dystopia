@@ -4,46 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Vampire Books{% endblock %}</title>
-
     <!-- Bootstrap CSS -->
     {% include "bootstrap_css.html" %}
     <style>
-        #title {
-            /*background-color: black;*/
-            color: white;
-            text-shadow: 2px 2px black;
-            text-align: center;
-            /*font-size: 100px;*/
-            font-size: 6vw;
-            font-family: vampire, Georgia, Times, serif;
-        }
-        #navigation {
-            /*background-color: rgba(0,0,0,1);*/
-            border: 1px solid white;
-            color: white;
-            /*position: fixed;*/
-            top: 0;
-            width: 100%;
-            /*left: 0;*/
-            height: 60px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-        .dropdown {
-            width: 220px;
-        }
         body {
-          text-align: center;
+          /* text-align: center; */
           background: radial-gradient(circle at 50% 50%, rgba(128, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 150%);
           font-family: Georgia, Times, serif;
         }
-        button a:link { color: white; }
-        button a:visited { color: white; }
-        button a:hover { color: white; }
-        button a:active { color: white; }
-
+        <!--
         #debug {
             padding: 10px;
             display: flex;
@@ -51,13 +20,14 @@
             justify-content: space-around;
             color: white;
         }
-        #container a:link { color: #6e0909; }
-        #container a:visited { color: black; }
-        #container a:hover { color: black; }
-        #container a:active { color: black; }
-        #container {
+        -->
+        .container a:link { color: #6e0909; }
+        .container a:visited { color: black; }
+        .container a:hover { color: black; }
+        .container a:active { color: black; }
+        .container {
             /*margin: 0px 50px 50px 50px;*/
-            margin: 0px auto 50px auto;
+            margin: 50px auto 50px auto;
             /*background-color: #faecd6;*/
             background:radial-gradient(ellipse at 50% 50%, white, antiquewhite 100%);
             width: 80vw;
@@ -75,26 +45,17 @@
         a {
             text-decoration: none;
         }
-        .btn-secondary a:link { color: white; }
-
+        <!--.btn-secondary a:link { color: white; }-->
+        button a:link { color: white; }
+        button a:visited { color: white; }
+        button a:hover { color: white; }
+        button a:active { color: white; }
     </style>
 </head>
 <body>
-    <div id="navigation">
-        <a href="/" class="btn btn-secondary" role="button">Home</a>
-        {% include "series_dropdown.html" %}
-        {% include "author_dropdown.html" %}
-        {% include "book_dropdown.html" %}
-        {% if user.is_authenticated %}
-            {% include "reports_dropdown.html" %}
-        {% endif %}
-    </div>
-    <div id="title">
-        <p>Bloodsucker Books</p>
-        <h3>The Home of Vampire Fiction</h3>
-    </div>
-    {% block content %}{% endblock %}
-    <!-- Bootstrap JS -->
-    {% include "bootstrap_js.html" %}
+{% include "navigation.html" %}
+{% block content %}{% endblock %}
+<!-- Bootstrap JS -->
+{% include "bootstrap_js.html" %}
 </body>
 </html>

@@ -179,7 +179,7 @@ class Book(models.Model):
 
     author = models.ForeignKey(
         Author,
-        default=DEFAULT_AUTHOR_ID,
+        #default=DEFAULT_AUTHOR_ID,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -226,9 +226,9 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if self.subtitle:
-            self.slug = slugify(f"{self.id}-{self.title}-{self.subtitle}-by-{self.author.first_name_last_name()}")
+            self.slug = slugify(f"{self.id}-{self.title}-{self.subtitle}-by-{self.author.first_name_last_name}")
         else:
-            self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name()}")
+            self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name}")
         super(Book, self).save(*args, **kwargs)
 
     def __str__(self):

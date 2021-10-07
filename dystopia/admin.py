@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, StackedInline, TabularInline
-#from .models import Publisher, Imprint, Series, Author, Book
 from .models import Series, Author, Book
 
 
 class BookInline(StackedInline):
     model = Book
     readonly_fields = ('slug',)
-    autocomplete_fields = ['author']
+    raw_id_fields = ('author',)
 
     fields = (
         ('reading_order', 'author'),
@@ -22,8 +21,8 @@ class BookInline(StackedInline):
 @admin.register(Series)
 class SeriesAdmin(ModelAdmin):
     inlines = [BookInline]
-    #save_on_top = True
     readonly_fields = ('slug',)
+    raw_id_fields = ('author',)
 
     fields = (
         'publish',
@@ -64,7 +63,6 @@ class SeriesInline(StackedInline):
 
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    #save_on_top = True
     inlines = [SeriesInline, BookInline]
     readonly_fields = ('id', 'slug',)
     search_fields = ['last_names', 'first_names']
@@ -83,20 +81,18 @@ class AuthorAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
-    #save_on_top = True
     list_display = ('title', 'publish', 'series', 'author')
     list_filter = ['publish',]
     readonly_fields = ('slug',)
     search_fields = ('title', 'author__first_names', 'author__last_names',)
+    raw_id_fields = ('author', 'series')
 
     fields = (
         'publish',
         ('title', 'slug'),
         'subtitle',
         'author',
-        'length',
         'series',
-        #'publication_month',
-        #'publication_year',
+        'length',
         'amazon_short_link',
     )

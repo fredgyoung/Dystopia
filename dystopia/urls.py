@@ -33,7 +33,7 @@ urlpatterns = [
     #path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
     path('book/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
     # Main Admin Page
-    path('admin-reports/', views.admin_reports_view, name='admin_reports'),
+    #path('admin-reports/', views.admin_reports_view, name='admin_reports'),
     # Additional Admin Pages
     path('admin-author-list/', views.admin_author_list_view, name='author_list'),
     path('admin-book-list/', views.admin_book_list_view, name='book_list'),
