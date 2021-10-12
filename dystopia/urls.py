@@ -28,18 +28,19 @@ urlpatterns = [
     path('series-starting-with-<str:letter>/', views.series_list_view, name='series_list'),
     path('series/<slug:slug>/', views.series_detail_view, name='series_detail'),
     # Books
-    #path('books-starting-with-<str:letter>/', views.book_list_view, name='book_list'),
     path('books-starting-with-<str:letter>/', views.BookListView.as_view()),
-    #path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
     path('book/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
+
+    #path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
+    #path('books-starting-with-<str:letter>/', views.book_list_view, name='book_list'),
     # Main Admin Page
     #path('admin-reports/', views.admin_reports_view, name='admin_reports'),
     # Additional Admin Pages
-    path('admin-author-list/', views.admin_author_list_view, name='author_list'),
-    path('admin-book-list/', views.admin_book_list_view, name='book_list'),
-    path('admin-series-list/', views.admin_series_list_view, name='series_list'),
-    path('series-book-totals/', views.series_book_totals, name='series_list'),
-    path('books-without-amazon-link/', views.books_without_amazon_link, name='book_list'),
+    #path('admin-author-list/', views.admin_author_list_view, name='author_list'),
+    #path('admin-book-list/', views.admin_book_list_view, name='book_list'),
+    #path('admin-series-list/', views.admin_series_list_view, name='series_list'),
+    #path('series-book-totals/', views.series_book_totals, name='series_list'),
+    #path('books-without-amazon-link/', views.books_without_amazon_link, name='book_list'),
 
 ]
 

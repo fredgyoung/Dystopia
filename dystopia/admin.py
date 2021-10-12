@@ -23,6 +23,7 @@ class SeriesAdmin(ModelAdmin):
     inlines = [BookInline]
     readonly_fields = ('slug',)
     raw_id_fields = ('author',)
+    list_editable = ['publish',]
 
     fields = (
         'publish',
@@ -66,8 +67,10 @@ class AuthorAdmin(ModelAdmin):
     inlines = [SeriesInline, BookInline]
     readonly_fields = ('id', 'slug',)
     search_fields = ['last_names', 'first_names']
-    list_display = ['last_name_first_name', 'publish']
+    list_display = ['first_names', 'last_names', 'publish']
     list_filter = ['publish',]
+    list_editable = ['publish',]
+    list_display_links = ('first_names', 'last_names')
 
     fields = (
         'publish',
@@ -86,6 +89,7 @@ class BookAdmin(ModelAdmin):
     readonly_fields = ('slug',)
     search_fields = ('title', 'author__first_names', 'author__last_names',)
     raw_id_fields = ('author', 'series')
+    list_editable = ['publish',]
 
     fields = (
         'publish',

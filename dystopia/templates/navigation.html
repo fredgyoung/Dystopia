@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-custom sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Bloodsucker Books</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,10 +8,7 @@
             {% include "author_dropdown.html" %}
             {% include "series_dropdown.html" %}
             {% include "book_dropdown.html" %}
-            {% if user.is_authenticated %}
-                {% include "reports_dropdown.html" %}
-            {% endif %}
-            <span class="navbar-text">
+            <span class="navbar-text" style="color:white;">
                 The Home of Vampire Fiction
             </span>
         </div>

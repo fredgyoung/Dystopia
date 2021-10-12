@@ -60,11 +60,11 @@ class Author(models.Model):
         return f'{self.last_names}, {self.first_names}'
 
     def __str__(self):
-        return self.last_name_first_name
+        return self.first_name_last_name
 
     class Meta:
         verbose_name_plural = 'Authors'
-        ordering = ['last_names', 'first_names']
+        ordering = ['first_names', 'last_names']
 
 
 class Series(models.Model):
@@ -217,10 +217,10 @@ class Book(models.Model):
     DEFAULT_AMAZON_LINK = "https://amzn.to/3l2b6VO"
 
     amazon_short_link = models.URLField(
-        max_length=30,
+        max_length=255,
         null=True,
         blank=True,
-        default=DEFAULT_AMAZON_LINK,
+        #default=DEFAULT_AMAZON_LINK,
         verbose_name="Amazon Short Link",
     )
 

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h2>Starting with {{ letter }}</h2>
+        <h2>Books starting with {{ letter }}</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Book Title</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Author</th>
                 </tr>
             </thead>
@@ -14,7 +14,7 @@
                     {% for book in page_obj %}
                         <tr>
                             <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
-                            <td>{{ book.author.first_name_last_name }}</td>
+                            <td><a href="{% url 'author_detail' book.author.slug %}">{{ book.author.first_name_last_name }}</a></td>
                         </tr>
                     {% endfor %}
                 {% else %}
