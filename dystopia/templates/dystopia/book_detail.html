@@ -9,10 +9,10 @@
     <p>Author: {{ book.author.first_name_last_name }}</p>
     <p>Series: {{ book.series }}</p>
     <p>Length: {{ book.length }}</p>
-    {% if book.amazon_short_link %}
-        <td>
-            <a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a>
-        </td>
+    {% if book.amazon_large_image_anchor %}
+        <p>{{ book.amazon_large_image_anchor|safe }}</p>
+    {% elif book.amazon_short_link %}
+        <p><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></p>
     {% endif %}
     </div>
 {% endblock %}

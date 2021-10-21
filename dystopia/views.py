@@ -89,7 +89,7 @@ def book_list_view(request, letter):
 '''
 
 class BookListView(ListView):
-    paginate_by = 25
+    paginate_by = 10
     context_obj_name = 'page_obj'
     template_name = 'book_list.html'
 

@@ -18,7 +18,11 @@
                     <td>{{ book.reading_order }}</td>
                     <td>{{ book.title_and_subtitle }}</td>
                     <td>{{ book.length }}</td>
-                    <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+                    {% if book.amazon_small_image_anchor %}
+                        <td>{{ book.amazon_small_image_anchor|safe }}</td>
+                    {% elif book.amazon_short_link %}
+                        <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+                    {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>

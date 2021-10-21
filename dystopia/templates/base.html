@@ -1,69 +1,11 @@
-<!DOCTYPE html>
-
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Vampire Books{% endblock %}</title>
     <!-- Bootstrap CSS -->
     {% include "bootstrap_css.html" %}
-    <style>
-        body {
-          /* text-align: center; */
-          background: radial-gradient(circle at 50% 50%, rgba(128, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 150%);
-          font-family: Georgia, Times, serif;
-        }
-
-        .homepage-div {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            text-align: center;
-        }
-        random-list {
-            list-style-type: none;
-        }
-        .random-list-container {
-            padding: 10px 20px;
-            margin: 50px 25px;
-            background:radial-gradient(ellipse at 50% 50%, white, antiquewhite 100%);
-            border: 3px solid black;
-            border-radius: 15px;
-         }
-        .container a:link { color: #6e0909; }
-        .container a:visited { color: black; }
-        .container a:hover { color: black; }
-        .container a:active { color: black; }
-        .container {
-            /*margin: 0px 50px 50px 50px;*/
-            margin: 50px auto 50px auto;
-            /*background-color: #faecd6;*/
-            background:radial-gradient(ellipse at 50% 50%, white, antiquewhite 100%);
-            width: 80vw;
-            max-width: 1000px;
-            min-width: 200px;
-            padding: 10px;
-            border: 3px solid black;
-            border-radius: 15px;
-            text-align: center;
-            /*font-size: 1.5vw;*/
-        }
-        table {
-            text-align: left;
-        }
-        a {
-            text-decoration: none;
-        }
-        <!--.btn-secondary a:link { color: white; }-->
-        button a:link { color: white; }
-        button a:visited { color: white; }
-        button a:hover { color: white; }
-        button a:active { color: white; }
-        .scrollable-menu {
-            height: auto;
-            max-height: 200px;
-            overflow-x: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
 {% include "navigation.html" %}

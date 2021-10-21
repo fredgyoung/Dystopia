@@ -3,15 +3,42 @@ from django.contrib.admin import ModelAdmin, StackedInline, TabularInline
 from .models import Series, Author, Book
 
 
-class BookInline(StackedInline):
-    model = Book
-    readonly_fields = ('slug',)
-    raw_id_fields = ('author',)
+# Book
+@admin.register(Book)
+class BookAdmin(ModelAdmin):
+    list_display = ('title', 'publish', 'series', 'author')
+    list_filter = ['publish',]
+    readonly_fields = ('slug', 'id')
+    search_fields = ('title', 'author__first_names', 'author__last_names',)
+    raw_id_fields = ('author', 'series')
+    list_editable = ['publish',]
 
     fields = (
-        ('reading_order', 'author'),
-        ('title', 'subtitle'),
-        ('amazon_short_link', 'length'),
+        'publish',
+        ('title', 'id'),
+        ('author', 'slug'),
+        'series',
+        'length',
+        'amazon_short_link',
+        'amazon_small_image_anchor',
+        'amazon_large_image_anchor',
+    )
+
+
+# Series
+class BookInlineForSeries(StackedInline):
+    model = Book
+    readonly_fields = ('series', )
+    raw_id_fields = ('author', )
+
+    fields = (
+        #'publish',
+        ('reading_order', 'series'),
+        ('title', 'length'),
+        #'amazon_short_link',
+        'author',
+        #'amazon_small_image_anchor',
+        #'amazon_large_image_anchor',
     )
 
     ordering = ('reading_order', 'publication_year', 'publication_month',)
@@ -20,8 +47,8 @@ class BookInline(StackedInline):
 
 @admin.register(Series)
 class SeriesAdmin(ModelAdmin):
-    inlines = [BookInline]
-    readonly_fields = ('slug',)
+    inlines = [BookInlineForSeries]
+    readonly_fields = ('slug', 'id')
     raw_id_fields = ('author',)
     list_editable = ['publish',]
 
@@ -42,12 +69,13 @@ class SeriesAdmin(ModelAdmin):
     search_fields = ('title', 'author__first_names', 'author__last_names',)
 
 
-class SeriesInline(StackedInline):
+# Author
+class SeriesInlineForAuthor(StackedInline):
     model = Series
-    readonly_fields = ('slug',)
+    readonly_fields = ('author', 'slug')
 
     fields = (
-        'publish',
+        ('publish', 'author'),
         ('title', 'slug'),
         'wikipedia_page',
         'amazon_page',
@@ -62,9 +90,28 @@ class SeriesInline(StackedInline):
     extra = 0
 
 
+class BookInlineForAuthor(StackedInline):
+    model = Book
+    readonly_fields = ('author',)
+    raw_id_fields = ('series',)
+
+    fields = (
+        #'publish',
+        ('reading_order', 'author'),
+        ('title', 'series'),
+        #'amazon_short_link',
+        'length',
+        #'amazon_small_image_anchor',
+        #'amazon_large_image_anchor',
+    )
+
+    ordering = ('reading_order', 'publication_year', 'publication_month',)
+    extra = 0
+
+
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    inlines = [SeriesInline, BookInline]
+    inlines = [SeriesInlineForAuthor, BookInlineForAuthor]
     readonly_fields = ('id', 'slug',)
     search_fields = ['last_names', 'first_names']
     list_display = ['first_names', 'last_names', 'publish']
@@ -82,21 +129,3 @@ class AuthorAdmin(ModelAdmin):
     )
 
 
-@admin.register(Book)
-class BookAdmin(ModelAdmin):
-    list_display = ('title', 'publish', 'series', 'author')
-    list_filter = ['publish',]
-    readonly_fields = ('slug',)
-    search_fields = ('title', 'author__first_names', 'author__last_names',)
-    raw_id_fields = ('author', 'series')
-    list_editable = ['publish',]
-
-    fields = (
-        'publish',
-        ('title', 'slug'),
-        'subtitle',
-        'author',
-        'series',
-        'length',
-        'amazon_short_link',
-    )

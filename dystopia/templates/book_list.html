@@ -5,16 +5,28 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">Cover</th>
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
+                    <th scope="col">Buy</th>
                 </tr>
             </thead>
             <tbody>
                 {% if page_obj %}
                     {% for book in page_obj %}
                         <tr>
+                            {% if book.amazon_small_image_anchor %}
+                                <td>{{ book.amazon_small_image_anchor|safe }}</td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
                             <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
                             <td><a href="{% url 'author_detail' book.author.slug %}">{{ book.author.first_name_last_name }}</a></td>
+                            {% if book.amazon_short_link %}
+                                <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 {% else %}

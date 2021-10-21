@@ -154,12 +154,6 @@ class Book(models.Model):
         max_length=255,
     )
 
-    subtitle = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-    )
-
     slug = models.SlugField(
         null=True,
         blank=True,
@@ -214,14 +208,23 @@ class Book(models.Model):
         blank=True
     )
 
-    DEFAULT_AMAZON_LINK = "https://amzn.to/3l2b6VO"
-
     amazon_short_link = models.URLField(
         max_length=255,
         null=True,
         blank=True,
-        #default=DEFAULT_AMAZON_LINK,
         verbose_name="Amazon Short Link",
+    )
+
+    amazon_small_image_anchor = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Amazon Small Image Anchor",
+    )
+
+    amazon_large_image_anchor = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Amazon Large Image Anchor",
     )
 
     def save(self, *args, **kwargs):
@@ -239,7 +242,8 @@ class Book(models.Model):
             return f'{self.title}: {self.subtitle}'
         else:
             return self.title
-
+    
     class Meta:
         verbose_name_plural = 'Books'
         ordering = ['title']
+
