@@ -22,6 +22,7 @@ class Author(models.Model):
     )
 
     slug = models.SlugField(
+        max_length=255,
         null=True,
         blank=True,
         unique=True,
@@ -106,6 +107,7 @@ class Series(models.Model):
     )
 
     slug = models.SlugField(
+        max_length=255,
         null=True,
         blank=True,
         unique=True
@@ -155,6 +157,7 @@ class Book(models.Model):
     )
 
     slug = models.SlugField(
+        max_length=255,
         null=True,
         blank=True,
         unique=True
@@ -228,21 +231,12 @@ class Book(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        if self.subtitle:
-            self.slug = slugify(f"{self.id}-{self.title}-{self.subtitle}-by-{self.author.first_name_last_name}")
-        else:
-            self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name}")
+        self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name}")
         super(Book, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-    def title_and_subtitle(self):
-        if self.subtitle:
-            return f'{self.title}: {self.subtitle}'
-        else:
-            return self.title
-    
     class Meta:
         verbose_name_plural = 'Books'
         ordering = ['title']

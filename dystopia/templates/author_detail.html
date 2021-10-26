@@ -16,7 +16,7 @@
                 {% for book in obj.book_list %}
                     <tr>
                     <td>{{ book.reading_order }}</td>
-                    <td>{{ book.title_and_subtitle }}</td>
+                    <td>{{ book.title }}</td>
                     <td>{{ book.length }}</td>
                     {% if book.amazon_small_image_anchor %}
                         <td>{{ book.amazon_small_image_anchor|safe }}</td>

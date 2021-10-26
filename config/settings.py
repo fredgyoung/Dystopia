@@ -24,9 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
+'''
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+'''
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -81,18 +86,30 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
 
+'''
 DATABASES = {
     'default': env.dj_db_url("DATABASE_URL")
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'CONVERT_DB', # The Server name from 1.5
+        'USER': 'postgres', # The username from 1.6
+        'PASSWORD': 'brynmawr', # The password from installation
+        'HOST': 'localhost', # Host name/address from 1.6
+        'PORT': '5432', # Port from 1.6
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
