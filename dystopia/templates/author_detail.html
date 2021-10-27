@@ -7,6 +7,7 @@
             <thead>
                 <tr>
                     <th scope="col">Suggested Order</th>
+                    <th scope="col">Cover</th>
                     <th scope="col">Title</th>
                     <th scope="col">Length</th>
                     <th scope="col">Buy</th>
@@ -16,12 +17,17 @@
                 {% for book in obj.book_list %}
                     <tr>
                     <td>{{ book.reading_order }}</td>
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.length }}</td>
                     {% if book.amazon_small_image_anchor %}
                         <td>{{ book.amazon_small_image_anchor|safe }}</td>
-                    {% elif book.amazon_short_link %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.length }}</td>
+                    {% if book.amazon_short_link %}
                         <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
+                    {% else %}
+                        <td></td>
                     {% endif %}
                     </tr>
                 {% endfor %}
