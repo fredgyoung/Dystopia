@@ -34,9 +34,9 @@ SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=True)
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['bloodsuckerbooks.com', '.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
