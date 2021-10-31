@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Vampire Books{% endblock %}</title>
-    <!-- Bootstrap CSS -->
+    <!-- CSS -->
     {% include "bootstrap_css.html" %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
 {% include "navigation.html" %}
 {% block content %}{% endblock %}
-<!-- Bootstrap JS -->
+<!-- JavaScript -->
 {% include "bootstrap_js.html" %}
+{% include "google_analytics.html" %}
 </body>
 </html>
