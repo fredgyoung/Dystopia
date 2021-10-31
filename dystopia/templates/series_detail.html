@@ -21,7 +21,7 @@
                     {% else %}
                         <td></td>
                     {% endif %}
-                    <td>{{ book.title }}</td>
+                    <td><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></td>
                     <td>{{ book.length }}</td>
                     {% if book.amazon_small_image_anchor %}
                         <td><a class="btn btn-warning btn-sm" target="_blank" href="{{ book.amazon_short_link }}">Amazon</a></td>
