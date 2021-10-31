@@ -9,9 +9,19 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
 
+'''
 def home_page_view(request):
     template = 'home.html'
     context = {}
+    return render(request, template, context)
+'''
+
+def home_page_view(request):
+    template = 'home.html'
+    book_list = Book.objects.all()[:15]
+    context = {
+        'book_list': book_list,
+    }
     return render(request, template, context)
 
 def author_list_view(request, letter):

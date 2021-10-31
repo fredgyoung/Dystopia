@@ -4,6 +4,17 @@ body {
   font-family: Georgia, Times, serif;
 }
 
+.homepage-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    gap: 20px;
+}
+
+/*
 .homepage-div {
     display: flex;
     flex-direction: column;
@@ -25,6 +36,7 @@ random-list {
     border: 3px solid black;
     border-radius: 15px;
  }
+*/
 
 .container a:link { color: #6e0909; }
 .container a:visited { color: black; }
