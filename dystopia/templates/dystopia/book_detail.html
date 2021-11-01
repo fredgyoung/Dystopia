@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
+{% block meta %}
+    <meta name="description" content="{{ book.title }} by {{ book.author.first_name_last_name }}">
+{% endblock %}
+{% block title %}{{ book.title }} by {{ book.author.first_name_last_name }}{% endblock %}
 {% block content %}
     <div class="container">
-    {% if book.subtitle %}
-        <p>Title: {{ book.title }}: {{ book.subtitle }}</p>
-    {% else %}
-        <p>Title: {{ book.title }}</p>
-    {% endif %}
+    <p>Title: {{ book.title }}</p>
     <p>Author: {{ book.author.first_name_last_name }}</p>
     <p>Series: {{ book.series }}</p>
     <p>Length: {{ book.length }}</p>

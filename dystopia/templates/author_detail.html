@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block meta %}
+    <meta name="description" content="{{ author.first_name_last_name }}">
+{% endblock %}
+{% block title %}{{ author.first_name_last_name }}{% endblock %}
 {% block content %}
     {% for obj in output %}
         <div class="container">

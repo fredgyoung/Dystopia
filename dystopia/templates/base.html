@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Vampire Books{% endblock %}</title>
+    {% block meta %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
     <!-- CSS -->
     {% include "bootstrap_css.html" %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">

@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block meta %}
+    <meta name="description" content="The home of vampire fiction. We have vampire books and vampire book series.">
+{% endblock %}
+{% block title %}Bloodsucker Books{% endblock %}
 {% block content %}
     <div class="homepage-container">
         {% for book in book_list %}
