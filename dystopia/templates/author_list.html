@@ -19,8 +19,8 @@
                 {% for author in author_list %}
                     <tr>
                         <td><a href="{% url 'author_detail' author.slug %}">{{ author.first_name_last_name }}</a></td>
-                        <td>3</td>
-                        <td>18</td>
+                        <td>{{ author.number_of_series }}</td>
+                        <td>{{ author.number_of_books }}</td>
                     </tr>
                 {% endfor %}
             {% else %}

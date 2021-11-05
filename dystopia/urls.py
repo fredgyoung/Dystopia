@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.contrib.sitemaps.views import sitemap
 
 # Set the application namespace
 #app_name = 'dystopia'
@@ -30,6 +31,8 @@ urlpatterns = [
     # Books
     path('books-starting-with-<str:letter>/', views.BookListView.as_view()),
     path('book/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
+    # SiteMap
+    #path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 
     #path('book/<slug:slug>/', views.book_detail_view, name='book_detail'),
     #path('books-starting-with-<str:letter>/', views.book_list_view, name='book_list'),

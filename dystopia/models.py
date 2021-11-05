@@ -60,6 +60,14 @@ class Author(models.Model):
     def last_name_first_name(self):
         return f'{self.last_names}, {self.first_names}'
 
+    @property
+    def number_of_series(self):
+        return Series.objects.filter(author__exact=self.id).count()
+
+    @property
+    def number_of_books(self):
+        return Book.objects.filter(author__exact=self.id).count()
+
     def __str__(self):
         return self.first_name_last_name
 
