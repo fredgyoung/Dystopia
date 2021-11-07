@@ -26,6 +26,7 @@ def home_page_view(request):
 
 def author_list_view(request, letter):
     author_list = Author.objects.filter(last_names__startswith=letter, publish__exact=True)
+    #author_list = Author.objects.filter(last_names__startswith=letter, number_of_books__gt=0)
     context = {
         'letter': letter,
         'author_list': author_list,
@@ -60,6 +61,7 @@ def author_detail_view(request, slug):
 
 def series_list_view(request, letter):
     series_list = Series.objects.filter(title__startswith=letter, publish__exact=True)
+    #series_list = Series.objects.filter(title__startswith=letter, number_of_books__gt=0)
     context = {
         'letter': letter,
         'series_list': series_list,

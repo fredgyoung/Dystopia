@@ -11,6 +11,7 @@
             <tr>
                 <th scope="col">Series</th>
                 <th scope="col">Author</th>
+                <th scope="col">Number of Books</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                     <tr>
                         <td><a href="{% url 'series_detail' series.slug %}">{{ series.title }}</a></td>
                         <td><a href="{% url 'author_detail' series.author.slug %}">{{ series.author.first_name_last_name }}</a></td>
+                        <td>{{ series.number_of_books }}</td>
                     </tr>
                 {% endfor %}
             {% else %}
