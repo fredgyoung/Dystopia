@@ -141,6 +141,10 @@ class Series(models.Model):
         self.slug = slugify(f"{self.id}-the-{self.title}-series")
         super(Series, self).save(*args, **kwargs)
 
+    @property
+    def number_of_books(self):
+        return Book.objects.filter(series__exact=self.id).count()
+
     def __str__(self):
         return self.title
 

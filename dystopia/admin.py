@@ -48,13 +48,17 @@ class BookInlineForSeries(StackedInline):
 @admin.register(Series)
 class SeriesAdmin(ModelAdmin):
     inlines = [BookInlineForSeries]
-    readonly_fields = ('slug', 'id')
+    readonly_fields = ('slug', 'id', 'number_of_books')
     raw_id_fields = ('author',)
     list_editable = ['publish',]
 
     fields = (
         'publish',
-        ('title', 'slug'),
+        #('title', 'slug'),
+        #('author', 'number_of_books'),
+        'title',
+        'slug',
+        'number_of_books',
         'author',
         'wikipedia_page',
         'amazon_page',
@@ -64,7 +68,7 @@ class SeriesAdmin(ModelAdmin):
         'notes',
     )
 
-    list_display = ('title', 'author', 'publish')
+    list_display = ('title', 'author', 'publish', 'number_of_books')
     list_filter = ('publish',)
     search_fields = ('title', 'author__first_names', 'author__last_names',)
 
@@ -112,17 +116,21 @@ class BookInlineForAuthor(StackedInline):
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
     inlines = [SeriesInlineForAuthor, BookInlineForAuthor]
-    readonly_fields = ('id', 'slug',)
+    readonly_fields = ('id', 'slug', 'number_of_series', 'number_of_books')
     search_fields = ['last_names', 'first_names']
-    list_display = ['first_names', 'last_names', 'publish']
+    list_display = ['first_names', 'last_names', 'publish', 'number_of_series', 'number_of_books']
     list_filter = ['publish',]
     list_editable = ['publish',]
     list_display_links = ('first_names', 'last_names')
 
     fields = (
         'publish',
-        ('first_names', 'id'),
-        ('last_names', 'slug'),
+        'id',
+        'slug',
+        'first_names',
+        'last_names',
+        'number_of_series',
+        'number_of_books',
         'wikipedia_page',
         'author_website',
         'publisher_website',
