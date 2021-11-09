@@ -205,6 +205,7 @@ class Book(models.Model):
         Series,
         null=True,
         blank=True,
+        default=None,
         on_delete=models.SET_NULL,
         related_name='books',
     )
