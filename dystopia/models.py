@@ -46,7 +46,13 @@ class Author(models.Model):
         blank=True,
     )
 
-    #description = models.TextField(null=True, blank=True)
+    notes = models.TextField(
+        verbose_name="Internal Notes",
+        null=True,
+        blank=True
+    )
+
+    description = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.id}-{self.first_names}-{self.last_names}")
@@ -135,7 +141,7 @@ class Series(models.Model):
         blank=True
     )
 
-    #description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.id}-the-{self.title}-series")
@@ -195,8 +201,6 @@ class Book(models.Model):
         related_name='books',
     )
 
-    #description = models.TextField(null=True, blank=True)
-
     series = models.ForeignKey(
         Series,
         null=True,
@@ -241,6 +245,14 @@ class Book(models.Model):
         blank=True,
         verbose_name="Amazon Large Image Anchor",
     )
+
+    notes = models.TextField(
+        verbose_name="Internal Notes",
+        null=True,
+        blank=True
+    )
+
+    description = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.id}-{self.title}-by-{self.author.first_name_last_name}")
