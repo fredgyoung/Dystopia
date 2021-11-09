@@ -22,6 +22,8 @@ class BookAdmin(ModelAdmin):
         'amazon_short_link',
         'amazon_small_image_anchor',
         'amazon_large_image_anchor',
+        'notes',
+        'description',
     )
 
 
@@ -66,6 +68,7 @@ class SeriesAdmin(ModelAdmin):
         'author_website',
         'publisher_website',
         'notes',
+        'description',
     )
 
     list_display = ('title', 'author', 'publish', 'number_of_books')
@@ -87,6 +90,7 @@ class SeriesInlineForAuthor(StackedInline):
         'author_website',
         'publisher_website',
         'notes',
+        'description',
     )
 
     ordering = ('title',)
@@ -134,6 +138,8 @@ class AuthorAdmin(ModelAdmin):
         'wikipedia_page',
         'author_website',
         'publisher_website',
+        'notes',
+        'description',
     )
 
 
