@@ -56,8 +56,6 @@ class SeriesAdmin(ModelAdmin):
 
     fields = (
         'publish',
-        #('title', 'slug'),
-        #('author', 'number_of_books'),
         'title',
         'slug',
         'number_of_books',
@@ -136,6 +134,8 @@ class AuthorAdmin(ModelAdmin):
         'number_of_series',
         'number_of_books',
         'wikipedia_page',
+        'amazon_page',
+        'goodreads_page',
         'author_website',
         'publisher_website',
         'notes',

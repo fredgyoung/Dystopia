@@ -28,6 +28,24 @@ class Author(models.Model):
         unique=True,
     )
 
+    wikipedia_page = models.URLField(
+        verbose_name="Wikipedia Page",
+        null=True,
+        blank=True,
+    )
+
+    amazon_page = models.URLField(
+        verbose_name="Amazon Page",
+        null=True,
+        blank=True,
+    )
+
+    goodreads_page = models.URLField(
+        verbose_name="Goodreads' Page",
+        null=True,
+        blank=True,
+    )
+
     author_website = models.URLField(
         verbose_name="Author's Website",
         null=True,
@@ -36,12 +54,6 @@ class Author(models.Model):
 
     publisher_website = models.URLField(
         verbose_name="Publisher's Website",
-        null=True,
-        blank=True,
-    )
-
-    wikipedia_page = models.URLField(
-        verbose_name="Wikipedia Page",
         null=True,
         blank=True,
     )
