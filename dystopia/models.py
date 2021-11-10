@@ -136,7 +136,7 @@ class Series(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        unique=True
+        #unique=True
     )
 
     author = models.ForeignKey(
