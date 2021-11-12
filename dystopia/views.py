@@ -25,7 +25,8 @@ def home_page_view(request):
     return render(request, template, context)
 
 def author_list_view(request, letter):
-    author_list = Author.objects.filter(last_names__startswith=letter, publish__exact=True)
+    author_list = Author.objects.filter(last_names__startswith=letter)
+    #author_list = Author.objects.filter(last_names__startswith=letter, publish__exact=True)
     #author_list = Author.objects.filter(last_names__startswith=letter, number_of_books__gt=0)
     context = {
         'letter': letter,
@@ -60,7 +61,8 @@ def author_detail_view(request, slug):
     return render(request, 'author_detail.html', context)
 
 def series_list_view(request, letter):
-    series_list = Series.objects.filter(title__startswith=letter, publish__exact=True)
+    series_list = Series.objects.filter(title__startswith=letter)
+    #series_list = Series.objects.filter(title__startswith=letter, publish__exact=True)
     #series_list = Series.objects.filter(title__startswith=letter, number_of_books__gt=0)
     context = {
         'letter': letter,
@@ -106,7 +108,8 @@ class BookListView(ListView):
     template_name = 'book_list.html'
 
     def get_queryset(self):
-        return Book.objects.filter(title__startswith=self.kwargs['letter'], publish__exact=True)
+        return Book.objects.filter(title__startswith=self.kwargs['letter'])
+        #return Book.objects.filter(title__startswith=self.kwargs['letter'], publish__exact=True)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
