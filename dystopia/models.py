@@ -174,6 +174,8 @@ class Series(models.Model):
 class Book(models.Model):
 
     LENGTH_CHOICES = [
+        ('Comic', 'Comic'),
+        ('Manga', 'Manga'),
         ('Novel', 'Novel'),
         ('Novella', 'Novella'),
         ('Short Story', 'Short Story'),
