@@ -7,14 +7,11 @@ from .models import Series, Author, Book
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
     list_display = ('title', 'series', 'author')
-    #list_filter = ['publish',]
     readonly_fields = ('slug', 'id')
     search_fields = ('title', 'author__first_names', 'author__last_names',)
     raw_id_fields = ('author', 'series')
-    #list_editable = ['publish',]
 
     fields = (
-        #'publish',
         ('title', 'id'),
         ('author', 'slug'),
         'series',
@@ -36,13 +33,14 @@ class BookInlineForSeries(StackedInline):
     extra = 0
 
     fields = (
-        #'publish',
-        ('reading_order', 'series'),
-        ('title', 'length'),
-        #'amazon_short_link',
+        'series',
+        'reading_order',
+        'title',
+        'length',
         'author',
-        #'amazon_small_image_anchor',
-        #'amazon_large_image_anchor',
+        'amazon_short_link',
+        'amazon_small_image_anchor',
+        'amazon_large_image_anchor',
     )
 
 
@@ -51,13 +49,10 @@ class SeriesAdmin(ModelAdmin):
     inlines = [BookInlineForSeries]
     readonly_fields = ('slug', 'id', 'number_of_books')
     raw_id_fields = ('author',)
-    #list_editable = ['publish',]
     list_display = ('title', 'author', 'number_of_books')
-    #list_filter = ('publish',)
     search_fields = ('title', 'author__first_names', 'author__last_names',)
 
     fields = (
-        #'publish',
         'title',
         'slug',
         'number_of_books',
@@ -80,7 +75,6 @@ class SeriesInlineForAuthor(StackedInline):
     extra = 0
 
     fields = (
-        #'publish',
         'author',
         ('title', 'slug'),
         'wikipedia_page',
@@ -101,13 +95,14 @@ class BookInlineForAuthor(StackedInline):
     extra = 0
 
     fields = (
-        #'publish',
-        ('reading_order', 'author'),
-        ('title', 'series'),
-        #'amazon_short_link',
+        'series',
+        'reading_order',
+        'title',
         'length',
-        #'amazon_small_image_anchor',
-        #'amazon_large_image_anchor',
+        'author',
+        'amazon_short_link',
+        'amazon_small_image_anchor',
+        'amazon_large_image_anchor',
     )
 
 
@@ -117,12 +112,9 @@ class AuthorAdmin(ModelAdmin):
     readonly_fields = ('id', 'slug', 'number_of_series', 'number_of_books')
     search_fields = ['last_names', 'first_names']
     list_display = ['first_names', 'last_names', 'number_of_series', 'number_of_books']
-    #list_filter = ['publish',]
-    #list_editable = ['publish',]
     list_display_links = ('first_names', 'last_names')
 
     fields = (
-        #'publish',
         'id',
         'slug',
         'first_names',
