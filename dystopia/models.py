@@ -175,6 +175,7 @@ class Book(models.Model):
 
     LENGTH_CHOICES = [
         ('Comic', 'Comic'),
+        ('Graphic Novel', 'Graphic Novel'),
         ('Manga', 'Manga'),
         ('Novel', 'Novel'),
         ('Novella', 'Novella'),
