@@ -1,3 +1,5 @@
+import string
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -18,7 +20,7 @@ def home_page_view(request):
 
 def home_page_view(request):
     template = 'home.html'
-    book_list = Book.objects.all()[:15]
+    book_list = Book.objects.all()[:30]
     context = {
         'book_list': book_list,
     }
