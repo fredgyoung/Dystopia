@@ -6,7 +6,8 @@
 {% block content %}
     {% for obj in output %}
         <div class="container">
-        <h1 style="text-align:center">The {{ obj.series.title }} Series by {{ author.first_name_last_name }}</h1>
+        <h1 style="text-align:center">The {{ obj.series.title }} Series</h1>
+        <h5 style="text-align:center">by {{ author.first_name_last_name }}</h5>
         <table class="table table-striped caption-top">
             <thead>
                 <tr>
